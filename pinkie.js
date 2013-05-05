@@ -30,23 +30,23 @@ window.Pinkie = {
   /**
    * Trigger an event
    * @param string type The event type
-   * @param object detail Additional information
+   * @param object details Additional information
    * about the event as an object
    */
-  fire : function(type, detail){
+  fire : function(type, details){
     // The second argument is optional
-    detail = detail || {};
+    details = details || {};
     try{
       // This should work on other browsers than IE
       var e = new CustomEvent(type, {
         "bubles": false,
         "cancelable": false,
-        "detail": detail});
+        "details": details});
     }catch(x){
       // Handle the IE case
       var e = document.createEvent('e');
       e.initEvent(type, false, false);
-      e.detail = detail;
+      e.details = details;
     }
     // Actual triggering of the event
     document.dispatchEvent(e);
@@ -57,7 +57,7 @@ window.Pinkie = {
    * @param string type The event type
    * @param function callback The associated callback function
    */
-  unwatch : function(type, callback){
+  forget : function(type, callback){
     document.removeEventListener(type, callback, true);
     // Update the event handler list
     this.list[type+callback] = 0;
