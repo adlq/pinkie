@@ -9,7 +9,7 @@ Caveat: here, events are identified not by the elements that listen to them, but
 Just include the pinkie.js script in your code:
 ```html
 <script src='path/to/pinkie.js'></script>
-``
+```
 
 ### Use cases ###
 * Bind a callback to a specific event type:
