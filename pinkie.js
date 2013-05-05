@@ -3,7 +3,11 @@ window.Pinkie = {
   // guaranteeing that there are no duplicates
   list : [],
 
-  // Bind a callback to an event 
+  /**
+   * Bind a callback to an event
+   * @param string type The event type
+   * @param function callback The associated callback function
+   */
   watch : function(type, callback){
     // Compute the list key corresponding to 
     // the event handler we want to add, this involves
@@ -23,13 +27,36 @@ window.Pinkie = {
     this.list[key] = 1;
   },
 
-  // Trigger an event 
-  fire : function(type){
-    document.dispatchEvent(new CustomEvent(
-        type, false, false));
+  /**
+   * Trigger an event
+   * @param string type The event type
+   * @param object detail Additional information
+   * about the event as an object
+   */
+  fire : function(type, detail){
+    // The second argument is optional
+    detail = detail || {};
+    try{
+      // This should work on other browsers than IE
+      var e = new CustomEvent(type, {
+        "bubles": false,
+        "cancelable": false,
+        "detail": detail});
+    }catch(x){
+      // Handle the IE case
+      var e = document.createEvent('e');
+      e.initEvent(type, false, false);
+      e.detail = detail;
+    }
+    // Actual triggering of the event
+    document.dispatchEvent(e);
   },
 
-  // Unbind a callback from an event
+  /**
+   * Unbind a callback from an event
+   * @param string type The event type
+   * @param function callback The associated callback function
+   */
   unwatch : function(type, callback){
     document.removeEventListener(type, callback, true);
     // Update the event handler list
