@@ -15,13 +15,13 @@ Just include the pinkie.js script in your code:
 * Bind a callback to a specific event type:
 
 ```js
-Pinkie.watch(eventType, callback)
+document.addEventListener(eventType, callback)
 ```
 
 * Unbind the previous callback from the event type:
 
 ```js
-Pinkie.forget(eventType, callback)
+document.removeEventListener(eventType, callback)
 ```
 
 * Fire a custom event to the event bus (additional info about the event may be included as an object in the optional second parameter):
